@@ -25,10 +25,10 @@ function init() {
         .y(function(d) { return d.y })
         .curve(d3.curveBasis)
 
-    d3.json("./data/us_apple.json", function(err, faces) {      
+    d3.json("./data/us_house.json", function(err,house) {      
         render(0)
         function render(i) {
-            var drawing = faces[i]
+            var drawing = house[i]
             var strokes = strokifyDrawing(drawing.drawing)
             center(strokes)
 
@@ -45,8 +45,8 @@ function init() {
         
             setTimeout(function() {
                 i++
-                console.log("i", i)
-                if(i >= faces.length) i = 0;
+                // console.log("i", i)
+                if(i >= house.length) i = 0;
                 render(i)
             }, delay)
         } 
