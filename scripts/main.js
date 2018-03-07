@@ -35,8 +35,8 @@ function drawMap(world, data) {
 
     //colors for population metrics
     var color = d3.scaleThreshold()
-        .domain([10000, 100000, 500000, 1000000, 5000000, 10000000, 50000000, 100000000, 500000000, 1500000000])
-        .range(["#f7fcfd", "#e0ecf4", "#bfd3e6", "#9ebcda", "#8c96c6", "#8c6bb1", "#88419d", "#810f7c", "#4d004b"]);
+        .domain([10000,100000,1000000, 10000000, 50000000])
+        .range(["#F4F9E1", "#D3E788","#6A7D22","#B2D732", "#71881B"]);
 
     var features = topojson.feature(world, world.objects.countries).features;
     //hash for the population
@@ -76,9 +76,11 @@ function drawMap(world, data) {
 
             d3.select(".country")
                 .text(d.properties.name);
+                console.log(d.properties.name)
 
             d3.select(".females")
                 .text(d.details && d.details.females && "Female " + d.details.females || "Not available");
+                console.log(d.details.females)
 
             d3.select(".males")
                 .text(d.details && d.details.males && "Male " + d.details.males || "Not available");
