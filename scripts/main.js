@@ -8,15 +8,6 @@ var svg = d3.select("#chartDiv")
 //to not re render the entire world, and to be able to scale up and down
 svg.attr("viewBox", "50 10 " + (width) + " " + (height))
     .attr("preserveAspectRatio", "xMinYMin");
-
-// var zoom = d3.zoom()
-//     .on("zoom", function () {
-//         var transform = d3.zoomTransform(this);
-//         map.attr("transform", transform);
-//     });
-
-// svg.call(zoom);
-
 //group element
 var map = svg.append("g")
     .attr("class", "map");
