@@ -43,16 +43,16 @@ function drawMap(world, data) {
     var populationById = {};
 
     //population data
-    data.forEach(function (d) {
-        populationById[d.country] = {
-            total: +d.total,
-            females: +d.females,
-            males: +d.males
-        }
-    });
-    features.forEach(function (d) {
-        d.details = populationById[d.properties.name] ? populationById[d.properties.name] : {};
-    });
+    // data.forEach(function (d) {
+    //     populationById[d.country] = {
+    //         total: +d.total,
+    //         females: +d.females,
+    //         males: +d.males
+    //     }
+    // });
+    // features.forEach(function (d) {
+    //     d.details = populationById[d.properties.name] ? populationById[d.properties.name] : {};
+    // });
 
     map.append("g")
         .selectAll("path")
@@ -78,12 +78,12 @@ function drawMap(world, data) {
                 .text(d.properties.name);
                 console.log(d.properties.name)
 
-            d3.select(".females")
-                .text(d.details && d.details.females && "Female " + d.details.females || "Not available");
-                console.log(d.details.females)
+            // d3.select(".females")
+            //     .text(d.details && d.details.females && "Female " + d.details.females || "Not available");
+            //     console.log(d.details.females)
 
-            d3.select(".males")
-                .text(d.details && d.details.males && "Male " + d.details.males || "Not available");
+            // d3.select(".males")
+            //     .text(d.details && d.details.males && "Male " + d.details.males || "Not available");
 
             d3.select('.details')
                 .style('visibility', "visible")
