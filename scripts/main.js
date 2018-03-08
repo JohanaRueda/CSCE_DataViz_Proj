@@ -13,7 +13,7 @@ var map = svg.append("g")
 //queue up multimple tasks, and await takes in place
 d3.queue()
     .defer(d3.json, "data/50m.json")
-    // .defer(d3.json, "data/population.json")
+    .defer(d3.json, "data/house_rep.json")
     .await(function (error, world, data) {
         if (error) {
             console.error('Oh man, something went wrong: ' + error);
@@ -33,7 +33,7 @@ function drawMap(world, data) {
     var features = topojson.feature(world, world.objects.countries).features;
 
     //population data
-    // data.forEach(function (d) {
+    //data.forEach(function (d) {
     //     populationById[d.country] = {
     //         total: +d.total,
     //         females: +d.females,
@@ -67,7 +67,7 @@ function drawMap(world, data) {
                 console.log(d.properties.name)
 
             d3.select(".drawing")
-                 .text("Drawing here");
+                 .text("insert drawing");
             //     console.log(d.details.females)
 
             // d3.select(".males")
