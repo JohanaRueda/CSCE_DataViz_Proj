@@ -42,7 +42,6 @@ for (var i = 0; i<n; i++){
 
 var force = d3.forceSimulation()
     .nodes(nodes)
-    .size([width, height])
     .gravity(.02)
     .charge(0)
     .on("tick", tick)

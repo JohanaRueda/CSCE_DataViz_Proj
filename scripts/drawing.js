@@ -15,7 +15,7 @@ function init() {
     chartHeight = drawingHeight - margin.top - margin.bottom;
     var scale = 1.25
     var delay = 1600
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#drawDiv").append("svg")
         .attr("width", chartWidth)
         .attr("height", chartHeight)
         .style("border", "1px solid #111")

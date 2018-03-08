@@ -38,6 +38,14 @@
         .center {
             text-align: center;
         }
+
+        #canvasDiv {
+			display: block;
+		}
+		canvas {
+			border: solid 1px black;
+			margin-left: 10%;
+		}
     </style>
 </head>
 <body>
@@ -56,18 +64,103 @@
 </div>
 <div id="chartDiv" style="background-color:#243e68"></div>
 <div id="drawDiv" style="background-color:aquamarine">
-    <h1 class="center">Hello</h1>
+    <h1 class="center">Houses all over the world</h1>
 </div>
 <div class="details">
     <h2 class="country"></h2>
     <p class="drawing"></p>
 </div>
-<div id="clusteringdiv"></div>
+<div id="canvasDiv">
+	<p><strong>Clear the canvas:</strong>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="clearCanvas()">Clear</button></p>	
+</div>
+<div id="clusteringdiv" style="background-color:rgb(127, 255, 165)">
+    <h1 class="center">House cluster</h1>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.js"></script>
 <script src="scripts/main.js"></script>
 <script src="scripts/drawing.js"></script>
+
 <script src="scripts/cluster.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    var canvasDiv = document.getElementById('canvasDiv');
+    canvasWidth = 490;
+    canvasHeight = 220;
+    canvas = document.createElement('canvas');
+    canvas.setAttribute('width', canvasWidth);
+    canvas.setAttribute('height', canvasHeight);
+    canvas.setAttribute('id', 'canvas');
+    canvasDiv.appendChild(canvas);
+    
+    var clickX = new Array();
+    var clickY = new Array();
+    var clickDrag = new Array();
+    var paint;
+    
+    if(typeof G_vmlCanvasManager != 'undefined') {
+        canvas = G_vmlCanvasManager.initElement(canvas);
+    }
+    context = canvas.getContext("2d");
+    
+    $('#canvas').mousemove(function(e){
+      if(paint){
+        addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+        redraw();
+      }
+    });
+    
+    $('#canvas').mousedown(function(e){
+      var mouseX = e.pageX - this.offsetLeft;
+      var mouseY = e.pageY - this.offsetTop;
+            
+      paint = true;
+      addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+      redraw();
+    });
+    
+    $('#canvas').mouseup(function(e){
+      paint = false;
+    });
+    
+    $('#canvas').mouseleave(function(e){
+      paint = false;
+    });
+    
+    function addClick(x, y, dragging)
+    {
+      clickX.push(x);
+      clickY.push(y);
+      clickDrag.push(dragging);
+    }
+    
+    function redraw(){
+      context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+      
+      context.strokeStyle = "#000000";
+      context.lineJoin = "round";
+      context.lineWidth = 2;
+                
+      for(var i=0; i < clickX.length; i++) {		
+        context.beginPath();
+        if(clickDrag[i] && i){
+          context.moveTo(clickX[i-1], clickY[i-1]);
+         }else{
+           context.moveTo(clickX[i]-1, clickY[i]);
+         }
+         context.lineTo(clickX[i], clickY[i]);
+         context.closePath();
+         context.stroke();
+      }
+    }
+    
+    function clearCanvas() {
+        clickX = new Array();
+        clickY = new Array();
+        clickDrag = new Array();
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+    }
+    </script>
 </body>
 </html>
