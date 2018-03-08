@@ -25,7 +25,7 @@ function init() {
         .y(function(d) { return d.y })
         .curve(d3.curveBasis)
 
-    d3.json("./data/us_house.json", function(err,house) {      
+    d3.json("./data/testdrawing.json", function(err,house) {      
         render(0)
         function render(i) {
             var drawing = house[i]
@@ -45,7 +45,6 @@ function init() {
         
             setTimeout(function() {
                 i++
-                // console.log("i", i)
                 if(i >= house.length) i = 0;
                 render(i)
             }, delay)

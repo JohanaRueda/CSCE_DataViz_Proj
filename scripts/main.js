@@ -5,7 +5,6 @@ var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 
 var svg = d3.select("#chartDiv")
     .append("svg")
     .style("cursor", "move");
-//to not re render the entire world, and to be able to scale up and down
 svg.attr("viewBox", "50 10 " + (width) + " " + (height))
     .attr("preserveAspectRatio", "xMinYMin");
 //group element
@@ -14,7 +13,7 @@ var map = svg.append("g")
 //queue up multimple tasks, and await takes in place
 d3.queue()
     .defer(d3.json, "data/50m.json")
-    .defer(d3.json, "data/population.json")
+    // .defer(d3.json, "data/population.json")
     .await(function (error, world, data) {
         if (error) {
             console.error('Oh man, something went wrong: ' + error);
@@ -31,16 +30,7 @@ function drawMap(world, data) {
 
     // Actually drawing the lines
     var path = d3.geoPath().projection(projection);
-
-    //colors for population metrics
-    var color = d3.scaleOrdinal(d3.schemeAccent);
-    // var color = d3.scaleThreshold()
-    //     .domain([10000,100000,1000000, 10000000, 50000000])
-    //     .range(["#F4F9E1", "#D3E788","#6A7D22","#B2D732", "#71881B"]);
-
     var features = topojson.feature(world, world.objects.countries).features;
-    //hash for the population
-    var populationById = {};
 
     //population data
     // data.forEach(function (d) {
@@ -76,8 +66,8 @@ function drawMap(world, data) {
                 .text(d.properties.name);
                 console.log(d.properties.name)
 
-            // d3.select(".females")
-            //     .text(d.details && d.details.females && "Female " + d.details.females || "Not available");
+            d3.select(".drawing")
+                 .text("Drawing here");
             //     console.log(d.details.females)
 
             // d3.select(".males")
